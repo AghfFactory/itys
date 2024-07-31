@@ -25,6 +25,8 @@ const AddTold = () => {
     // Function to get and update current date and time
     const updateCurrentDateTime = () => {
       const currentDate = new Date();
+    //  const specificDate = new Date('2024-07-21T04:00:00');
+
       const formattedDate = currentDate.toLocaleDateString(); // Format date as string
       const formattedTime = currentDate.toLocaleTimeString(); // Format time as string
       setCurrentDateTime(`${formattedDate} ${formattedTime}`); // Combine date and time
