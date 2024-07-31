@@ -13,6 +13,7 @@ const UserSetting = ({ userId }) => {
   const { control, handleSubmit, reset } = useForm();
   const [user, setUser] = useState(null); // Use null to check for loaded data
   const [passDialogOpen, setPasswordDialogOpen] = useState(false);
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
   const navigate = useNavigate(); // Initialize the navigate function
   const openPasswordDialog = (e) => {
@@ -38,7 +39,7 @@ const UserSetting = ({ userId }) => {
             }
           `;
           const variables = { token: authToken };
-          const response = await axios.post("http://localhost:5000/graphql", {
+          const response = await axios.post(apiUrl, {
             query,
             variables,
           });
@@ -70,7 +71,7 @@ const UserSetting = ({ userId }) => {
         email: data.email,
       };
 
-      const response = await axios.post("http://localhost:5000/graphql", {
+      const response = await axios.post(apiUrl, {
         query: mutation,
         variables,
       });

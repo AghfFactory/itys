@@ -11,7 +11,7 @@ const SendVerification = () => {
 
   const [status, setStatus] = useState(null);
   const { state } = useLocation();
-  const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT;
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
   const userEmail = state?.email;
   useEffect(() => {
@@ -19,7 +19,7 @@ const SendVerification = () => {
       try {
         console.log(userEmail);
         if (userEmail) {
-          const response = await axios.post(graphqlEndpoint, {
+          const response = await axios.post(apiUrl, {
             query: `
                     mutation SendVerification( $email: String!) {
                       sendVerification( email: $email) {

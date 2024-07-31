@@ -18,6 +18,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditTold = () => {
   const navigate = useNavigate();
   const { postId } = useParams(); // Get postId from URL parameters
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
 
   const [titleName, settitleName] = useState("");
@@ -48,7 +49,7 @@ const EditTold = () => {
         };
 
         // Make a POST request to the GraphQL endpoint using Axios
-        const response = await axios.post("http://localhost:5000/graphql", {
+        const response = await axios.post(apiUrl, {
           query: query,
           variables: variables,
         });
@@ -128,7 +129,7 @@ const EditTold = () => {
         editedAt: String(currentDateTime),
       };
       // Make a POST request to the GraphQL endpoint using Axios
-      const response = await axios.post("http://localhost:5000/graphql", {
+      const response = await axios.post(apiUrl, {
         query: mutation,
         variables: variables,
       });

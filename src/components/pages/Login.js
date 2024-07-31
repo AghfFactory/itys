@@ -22,7 +22,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT; // Use environment variable
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
   const isEmailValid = (email) => {
     // Basic email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -70,7 +70,7 @@ const Login = () => {
 
     try {
       // Send the GraphQL request using Axios
-      const response = await axios.post(graphqlEndpoint, requestData);
+      const response = await axios.post(apiUrl, requestData);
 
       const token = response.data.data.login.token;
       Cookies.set("authToken", token);

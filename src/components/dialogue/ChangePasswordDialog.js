@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -9,15 +9,17 @@ import {
   Grid,
   IconButton,
   InputAdornment,
-} from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useForm, Controller } from 'react-hook-form';
-import axios from 'axios';
-import { useState } from 'react';
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
 
 const ChangePasswordDialog = ({ open, onClose, userId }) => {
   const { control, handleSubmit, reset } = useForm();
   const [showPassword, setShowPassword] = useState(false); // For toggling password visibility
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
+
   // Toggle password visibility
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -39,17 +41,20 @@ const ChangePasswordDialog = ({ open, onClose, userId }) => {
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
       };
-      const response = await axios.post('http://localhost:5000/graphql', {
+      const response = await axios.post(apiUrl, {
         query: mutation,
         variables,
       });
 
-      console.log('Password changed successfully:', response.data.data.changePassword);
+      console.log(
+        "Password changed successfully:",
+        response.data.data.changePassword
+      );
 
       // Close the dialog after successful change
       onClose();
     } catch (error) {
-      console.error('Error changing password:', error);
+      console.error("Error changing password:", error);
     }
   };
 
@@ -67,7 +72,7 @@ const ChangePasswordDialog = ({ open, onClose, userId }) => {
                   <TextField
                     label="Current Password"
                     fullWidth
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -94,7 +99,7 @@ const ChangePasswordDialog = ({ open, onClose, userId }) => {
                   <TextField
                     label="New Password"
                     fullWidth
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword ? "text" : "password"}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">

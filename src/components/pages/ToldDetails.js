@@ -18,6 +18,7 @@ const ToldDetails = () => {
 
   const [selectedEdit, setSelectedEdit] = useState(null);
   const [lastEdit, setLastEdit] = useState(true);
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
   const [post, setPost] = useState(null); // State for the fetched post
   const [userId, setUserId] = useState(null);
@@ -36,7 +37,7 @@ const ToldDetails = () => {
         }
       `;
 
-        const response = await axios.post("http://localhost:5000/graphql", {
+        const response = await axios.post(apiUrl, {
           query,
           variables: { token },
         });
@@ -73,7 +74,7 @@ const ToldDetails = () => {
             }
           }
         `;
-        const response = await axios.post("http://localhost:5000/graphql", {
+        const response = await axios.post(apiUrl, {
           query,
           variables: { postId },
         });

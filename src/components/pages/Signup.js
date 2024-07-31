@@ -21,7 +21,7 @@ import StickyFooter from "../footer/StickyFooter";
 const SignUp = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const graphqlEndpoint = process.env.REACT_APP_GRAPHQL_ENDPOINT;
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -110,7 +110,7 @@ const SignUp = () => {
       return; // Prevent form submission if there are validation errors
     }
     try {
-      const response = await axios.post(graphqlEndpoint, {
+      const response = await axios.post(apiUrl, {
         query: `
                 mutation CreateUser($firstName: String!, $lastName: String!, $userName: String!, $email: String!, $password: String!) {
                     createUser(firstName: $firstName, lastName: $lastName, userName: $userName, email: $email, password: $password) {

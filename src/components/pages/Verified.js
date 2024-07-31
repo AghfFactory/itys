@@ -10,6 +10,7 @@ const Verified = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch(); // Initialize useDispatch hook
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
   useEffect(() => {
     const token = location.pathname.split("/").pop(); // Extract the token from the URL
@@ -33,7 +34,7 @@ const Verified = () => {
         `;
 
         const variables = { token };
-        const response = await axios.post("http://localhost:5000/graphql", {
+        const response = await axios.post(apiUrl, {
             query,
             variables,
         });

@@ -21,6 +21,8 @@ const AddTold = () => {
   const [description, setDescription] = useState("");
   const [categoryName, setCategoryName] = useState([]);
   const [currentDateTime, setCurrentDateTime] = useState(""); // State to store current date and time
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
+
   useEffect(() => {
     // Function to get and update current date and time
     const updateCurrentDateTime = () => {
@@ -80,7 +82,7 @@ const AddTold = () => {
       };
 
       // Make a POST request to the GraphQL endpoint using Axios
-      const response = await axios.post("http://localhost:5000/graphql", {
+      const response = await axios.post(apiUrl, {
         query: query,
         variables: variables,
       });
@@ -112,7 +114,7 @@ const AddTold = () => {
       };
 
       // Make a POST request to the GraphQL endpoint using Axios
-      const postResponse = await axios.post("http://localhost:5000/graphql", {
+      const postResponse = await axios.post(apiUrl, {
         query: mutation,
         variables: postVariables,
       });

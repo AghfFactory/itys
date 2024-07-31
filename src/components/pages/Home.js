@@ -17,6 +17,7 @@ const Home = ({ isAuthenticated }) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
 
   const handleClick = (postId) => {
     navigate(`/tolddetails/${postId}`, { state: { postId: postId } });
@@ -42,7 +43,7 @@ const Home = ({ isAuthenticated }) => {
 
           const variables = { token: authToken };
 
-          const response = await axios.post("http://localhost:5000/graphql", {
+          const response = await axios.post(apiUrl, {
             query: query,
             variables: variables,
           });
