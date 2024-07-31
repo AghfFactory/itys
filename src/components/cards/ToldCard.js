@@ -26,7 +26,7 @@ const ToldCard = ({ postId, title, description, createdAt, tags, onClick }) => {
     setShareDialogOpen(false);
   };
 
-  const shareLink = `http://localhost:3000/tolddetails/${postId}`; // Change to your shareable link format
+  const shareLink = `https://itys.vercel.app/tolddetails/${postId}`; // Change to your shareable link format
 
   return (
     <Box
