@@ -5,9 +5,11 @@ import { useLocation } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
+import Link from "@mui/material/Link";
 
 const SendVerification = () => {
   const navigate = useNavigate();
+  const [link, setLink] = useState([]);
 
   const [status, setStatus] = useState(null);
   const { state } = useLocation();
@@ -24,6 +26,7 @@ const SendVerification = () => {
                     mutation SendVerification( $email: String!) {
                       sendVerification( email: $email) {
                           success
+                          verify
                           message
                             
                             
@@ -36,6 +39,7 @@ const SendVerification = () => {
           });
 
           const responseData = response.data.data.sendVerification;
+          setLink(responseData.verify);
           console.log("User created:", responseData);
         }
       } catch (error) {
@@ -48,7 +52,7 @@ const SendVerification = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-       <Container
+      <Container
         maxWidth="md"
         component="main"
         sx={{
@@ -59,27 +63,37 @@ const SendVerification = () => {
           justifyContent: "center",
         }}
       >
-      <Typography variant="h6">Email Verification</Typography>
-      {userEmail ? (
-        <Typography variant="h6">Sending Email to {userEmail}</Typography>
-      ) : (
-        <>
-          <Typography>No email was found, Please Signup first.</Typography>
-          <Button
-            variant="contained"
-            onClick={() => navigate("/signup")}
-            size="large"
-            sx={{ mt: 16 }}
+        <Typography variant="h6">Email Verification</Typography>
+        {userEmail ? (
+          <div>
+            <Typography variant="h6">Sending Email to {userEmail}</Typography>
+            <Typography variant="h6">
+              or open this link in a new tab:{" "}
+            </Typography>
+            <Link href={link} underline="hover">
+              Click to verify
+            </Link>
+          </div>
+        ) : (
+          <>
+            <Typography>No email was found, Please Signup first.</Typography>
+            <Button
+              variant="contained"
+              onClick={() => navigate("/signup")}
+              size="large"
+              sx={{ mt: 16 }}
+            >
+              Signup
+            </Button>
+          </>
+        )}
+        {status && (
+          <Alert
+            severity={status.includes("successfully") ? "success" : "error"}
           >
-            Signup
-          </Button>
-        </>
-      )}
-      {status && (
-        <Alert severity={status.includes("successfully") ? "success" : "error"}>
-          {status}
-        </Alert>
-      )}
+            {status}
+          </Alert>
+        )}
       </Container>
     </Box>
   );
