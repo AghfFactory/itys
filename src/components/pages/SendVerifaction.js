@@ -13,7 +13,7 @@ const SendVerification = () => {
 
   const [status, setStatus] = useState(null);
   const { state } = useLocation();
-  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT;
+  const apiUrl = process.env.REACT_APP_GRAPHQL_ENDPOINT_Server;
 
   const userEmail = state?.email;
   useEffect(() => {
